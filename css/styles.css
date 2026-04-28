@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #000 100%);
+  color: white;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bg-silhouette {
+  position: fixed;
+  inset: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><path d="M100 300 Q200 200 400 220 Q500 150 650 160 Q800 150 900 200 Q1000 220 1100 260 L1100 300 Z" fill="rgba(79,195,247,0.04)"/><path d="M50 300 Q150 250 350 260 Q450 200 600 210 Q750 200 850 240 Q950 260 1050 280 L1050 300 Z" fill="rgba(79,195,247,0.03)"/></svg>') center/cover no-repeat;
+  z-index: 0;
+}
+
+.landing-container {
+  max-width: 600px;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #4FC3F7;
+  border: 1px solid rgba(79, 195, 247, 0.4);
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 0.5rem;
+}
+
+h1 span {
+  font-weight: 700;
+  color: #4FC3F7;
+}
+
+.tagline {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  line-height: 1.5;
+}
+
+.enter-button {
+  background: #4FC3F7;
+  color: #0a1628;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: 0.01em;
+}
+
+.enter-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(79, 195, 247, 0.35);
+}
+
+.enter-button:active {
+  transform: translateY(0);
+}
+
+.cardboard-icon {
+  width: 26px;
+  height: auto;
+  display: inline-block;
+}
+
+.desktop-note {
+  display: none;
+  margin-top: 1.2rem;
+  font-size: 0.82rem;
+  color: rgba(255, 215, 100, 0.75);
+  background: rgba(255, 215, 100, 0.08);
+  border: 1px solid rgba(255, 215, 100, 0.2);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+}
+
+.instructions {
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  opacity: 0.45;
+  line-height: 1.6;
+}
+
+.dot-divider {
+  display: inline-block;
+  margin: 0 0.5rem;
+  opacity: 0.4;
+}
+
+.mute-toggle {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+  z-index: 10;
+}
+
+.mute-toggle:hover {
+  background: rgba(255,255,255,0.15);
+}

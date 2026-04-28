@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Aurora E1 — VR Experience</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <style>
+    body { margin: 0; background: #000; }
+    #back-btn {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 9999;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      font-family: -apple-system, system-ui, sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    #back-btn:hover { background: rgba(255,255,255,0.15); }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" id="back-btn" aria-label="Back to landing page">← Back</a>
+
+  <a-scene
+    background="color: #000"
+    vr-mode-ui="enabled: true"
+    loading-screen="dotsColor: white; backgroundColor: black"
+    renderer="antialias: true; colorManagement: true"
+    embedded>
+
+    <!-- ── Asset preloading ── -->
+    <a-assets timeout="30000">
+      <!-- 360° sky images -->
+      <img id="sky1" src="assets/360/scene1-showroom.jpg" crossorigin="anonymous">
+      <img id="sky2" src="assets/360/scene2-exterior.jpg" crossorigin="anonymous">
+      <img id="sky3" src="assets/360/scene3-interior.jpg" crossorigin="anonymous">
+      <img id="sky4" src="assets/360/scene4-road.jpg" crossorigin="anonymous">
+      <img id="sky5" src="assets/360/scene5-sunset.jpg" crossorigin="anonymous">
+
+      <!-- Audio -->
+      <audio id="audio-ambient-showroom" src="assets/audio/ambient-showroom.mp3" preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-ambient-road"     src="assets/audio/ambient-road.mp3"     preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-narration-1"      src="assets/audio/narration-1.mp3"      preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-narration-2"      src="assets/audio/narration-2.mp3"      preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-narration-3"      src="assets/audio/narration-3.mp3"      preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-narration-4"      src="assets/audio/narration-4.mp3"      preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-narration-5"      src="assets/audio/narration-5.mp3"      preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-click"            src="assets/audio/click.mp3"            preload="auto" crossorigin="anonymous"></audio>
+      <audio id="audio-whoosh"           src="assets/audio/transition-whoosh.mp3" preload="auto" crossorigin="anonymous"></audio>
+    </a-assets>
+
+    <!-- ── 360° sky — swapped per scene ── -->
+    <a-sky id="dynamic-sky" src="" rotation="0 -90 0"></a-sky>
+
+    <!-- ── Ambient audio loop ── -->
+    <a-entity id="ambient-audio"
+              sound="src: ; loop: true; volume: 0.4; autoplay: false; positional: false">
+    </a-entity>
+
+    <!-- ── Narration (one-shot per scene) ── -->
+    <a-entity id="narration-audio"
+              sound="src: ; loop: false; volume: 1.0; autoplay: false; positional: false">
+    </a-entity>
+
+    <!-- ── Hotspot container (children replaced on scene change) ── -->
+    <a-entity id="hotspot-container"></a-entity>
+
+    <!-- ── Info panel — camera-parented, always appears in front ── -->
+    <a-entity id="info-panel" visible="false" camera-attached="offset: 0 0 -2.2">
+
+      <!-- Panel background -->
+      <a-entity
+        geometry="primitive: plane; width: 2.6; height: 1.4"
+        material="color: #0a1628; opacity: 0.93; shader: flat; transparent: true"
+        position="0 0 0">
+      </a-entity>
+
+      <!-- Top accent bar -->
+      <a-entity
+        geometry="primitive: plane; width: 2.6; height: 0.05"
+        material="color: #4FC3F7; shader: flat"
+        position="0 0.675 0.002">
+      </a-entity>
+
+      <!-- Title -->
+      <a-text
+        id="info-title"
+        value=""
+        position="0 0.38 0.01"
+        align="center"
+        color="#FFFFFF"
+        width="2.4"
+        font="exo2bold"
+        wrap-count="28">
+      </a-text>
+
+      <!-- Description -->
+      <a-text
+        id="info-desc"
+        value=""
+        position="0 -0.08 0.01"
+        align="center"
+        color="#9DB4D0"
+        width="2.3"
+        wrap-count="36">
+      </a-text>
+
+      <!-- Close hint -->
+      <a-text
+        value="Look away to dismiss"
+        position="0 -0.58 0.01"
+        align="center"
+        color="#4FC3F7"
+        opacity="0.5"
+        width="1.6">
+      </a-text>
+    </a-entity>
+
+    <!-- ── Black-fade sphere for transitions ── -->
+    <a-entity
+      id="fade-overlay"
+      geometry="primitive: sphere; radius: 50; segmentsWidth: 8; segmentsHeight: 6"
+      material="color: black; side: back; opacity: 0; transparent: true; shader: flat"
+      position="0 0 0">
+    </a-entity>
+
+    <!-- ── Scene progress indicator (small, top-right) ── -->
+    <a-entity id="scene-progress"
+              position="0.9 1.0 -2"
+              camera-attached="offset: 0.85 0.95 -2">
+      <a-text id="scene-indicator"
+              value="1 / 5"
+              align="right"
+              color="#4FC3F7"
+              opacity="0.55"
+              width="1.2">
+      </a-text>
+    </a-entity>
+
+    <!-- ── Camera rig with gaze cursor ── -->
+    <a-entity id="rig" position="0 0 0">
+      <a-camera
+        id="camera"
+        look-controls="reverseMouseDrag: false; touchEnabled: true; magicWindowTrackingEnabled: true"
+        wasd-controls-enabled="false"
+        near="0.1"
+        far="10000">
+
+        <!-- Fuse cursor — gaze activates after 1.5s, no physical button needed -->
+        <a-cursor
+          id="cursor"
+          fuse="true"
+          fuse-timeout="1500"
+          color="#FFFFFF"
+          opacity="0.85"
+          raycaster="objects: .clickable; far: 30"
+          geometry="primitive: ring; radiusInner: 0.012; radiusOuter: 0.016"
+          material="color: white; shader: flat"
+          animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; startEvents: click; dur: 200"
+          animation__fusing="property: scale; from: 1 1 1; to: 0.5 0.5 0.5; startEvents: fusing; dur: 1500"
+          animation__mouseleave="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 150">
+        </a-cursor>
+
+        <!-- Narration subtitle strip (camera-space HUD) -->
+        <a-entity position="0 -0.38 -1.2">
+          <a-entity
+            geometry="primitive: plane; width: 1.5; height: 0.25"
+            material="color: #000; opacity: 0.55; transparent: true; shader: flat">
+          </a-entity>
+          <a-text
+            id="narration-hud"
+            value=""
+            position="0 0 0.005"
+            align="center"
+            color="#FFFFFF"
+            width="1.4"
+            wrap-count="40"
+            opacity="0.85">
+          </a-text>
+        </a-entity>
+
+      </a-camera>
+    </a-entity>
+
+  </a-scene>
+
+  <!-- Load custom components first, then managers, then scene boot -->
+  <script src="js/components.js"></script>
+  <script src="js/audio-manager.js"></script>
+  <script src="js/hotspots.js"></script>
+  <script src="js/scene-manager.js"></script>
+
+</body>
+</html>

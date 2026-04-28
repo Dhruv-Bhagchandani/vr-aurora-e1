@@ -1,0 +1,167 @@
+{
+  "scenes": [
+    {
+      "id": "scene1-showroom",
+      "skyImage": "assets/360/scene1-showroom.jpg",
+      "ambientAudio": "assets/audio/ambient-showroom.mp3",
+      "narrationAudio": "assets/audio/narration-1.mp3",
+      "narrationText": "Welcome to the Aurora E1 — the future of luxury electric driving. Take a moment, look around. This is where redefinition begins.",
+      "hotspots": [
+        {
+          "id": "continue-1",
+          "type": "navigation",
+          "position": "0 1.6 -3",
+          "label": "Step Closer",
+          "targetScene": "scene2-exterior"
+        }
+      ],
+      "duration": 25
+    },
+    {
+      "id": "scene2-exterior",
+      "skyImage": "assets/360/scene2-exterior.jpg",
+      "ambientAudio": "assets/audio/ambient-showroom.mp3",
+      "narrationAudio": "assets/audio/narration-2.mp3",
+      "narrationText": "Every line of the Aurora E1 is sculpted for both elegance and aerodynamics. Look around to discover what defines its presence.",
+      "hotspots": [
+        {
+          "id": "headlights",
+          "type": "info",
+          "position": "-2 1.8 -3",
+          "label": "Adaptive Matrix Headlights",
+          "description": "12,000 individually controlled LEDs adapt to traffic, weather, and curves in real time."
+        },
+        {
+          "id": "wheels",
+          "type": "info",
+          "position": "-2 0.5 -3",
+          "label": "21\" Aero-Forged Alloys",
+          "description": "Lightweight forged alloys with active aero shutters reduce drag at highway speeds."
+        },
+        {
+          "id": "charging",
+          "type": "info",
+          "position": "2.5 1.2 -2",
+          "label": "350 kW Ultra-Fast Charging",
+          "description": "10% to 80% in 18 minutes on compatible DC fast chargers."
+        },
+        {
+          "id": "body",
+          "type": "info",
+          "position": "0 2.2 -3",
+          "label": "Sculpted Aluminium Body",
+          "description": "Drag coefficient of 0.21 — among the lowest in its class."
+        },
+        {
+          "id": "continue-2",
+          "type": "navigation",
+          "position": "0 1.6 3",
+          "label": "Step Inside",
+          "targetScene": "scene3-interior"
+        }
+      ],
+      "duration": 35
+    },
+    {
+      "id": "scene3-interior",
+      "skyImage": "assets/360/scene3-interior.jpg",
+      "ambientAudio": "assets/audio/ambient-showroom.mp3",
+      "narrationAudio": "assets/audio/narration-3.mp3",
+      "narrationText": "Step into a cabin that feels less like a car interior and more like a private lounge. Every surface, every sound — engineered around you.",
+      "hotspots": [
+        {
+          "id": "dashboard",
+          "type": "info",
+          "position": "0 1.4 -1.5",
+          "label": "Curved 14.6\" OLED Display",
+          "description": "Glanceable navigation, vehicle telemetry, and immersive media in one seamless surface."
+        },
+        {
+          "id": "roof",
+          "type": "info",
+          "position": "0 2.5 0",
+          "label": "Panoramic Smart Glass Roof",
+          "description": "Electrochromic glass dims at the touch of a button for instant privacy."
+        },
+        {
+          "id": "ambient",
+          "type": "info",
+          "position": "-1.5 1.2 0",
+          "label": "256-Color Ambient Lighting",
+          "description": "Mood-synced lighting that responds to drive mode, music, and time of day."
+        },
+        {
+          "id": "infotainment",
+          "type": "info",
+          "position": "1.5 1.2 0",
+          "label": "20-Speaker Spatial Audio",
+          "description": "Concert-grade Dolby Atmos tuned for the cabin's acoustic geometry."
+        },
+        {
+          "id": "continue-3",
+          "type": "navigation",
+          "position": "0 1.6 -3",
+          "label": "Hit the Road",
+          "targetScene": "scene4-road"
+        }
+      ],
+      "duration": 40
+    },
+    {
+      "id": "scene4-road",
+      "skyImage": "assets/360/scene4-road.jpg",
+      "ambientAudio": "assets/audio/ambient-road.mp3",
+      "narrationAudio": "assets/audio/narration-4.mp3",
+      "narrationText": "Out on the open road, the Aurora E1 is more than capable — it's exhilarating.",
+      "hotspots": [
+        {
+          "id": "acceleration",
+          "type": "info",
+          "position": "-2 1.6 -3",
+          "label": "0–100 km/h in 3.2 seconds",
+          "description": "Dual-motor all-wheel-drive with 580 horsepower."
+        },
+        {
+          "id": "range",
+          "type": "info",
+          "position": "0 1.6 -3",
+          "label": "Range: 620 km (WLTP)",
+          "description": "Class-leading 110 kWh battery with adaptive thermal management."
+        },
+        {
+          "id": "topspeed",
+          "type": "info",
+          "position": "2 1.6 -3",
+          "label": "Top Speed: 250 km/h",
+          "description": "Electronically limited. Aerodynamics calibrated for stability at all speeds."
+        },
+        {
+          "id": "continue-4",
+          "type": "navigation",
+          "position": "0 1 -2",
+          "label": "Continue",
+          "targetScene": "scene5-sunset"
+        }
+      ],
+      "duration": 25
+    },
+    {
+      "id": "scene5-sunset",
+      "skyImage": "assets/360/scene5-sunset.jpg",
+      "ambientAudio": "assets/audio/ambient-road.mp3",
+      "narrationAudio": "assets/audio/narration-5.mp3",
+      "narrationText": "The Aurora E1 isn't just a car. It's a statement. Are you ready to drive the future?",
+      "hotspots": [
+        {
+          "id": "cta",
+          "type": "cta",
+          "position": "0 1.6 -2.5",
+          "label": "Book a Test Drive",
+          "description": "Reserve your Aurora E1 experience.",
+          "ctaUrl": "https://example.com/book"
+        }
+      ],
+      "duration": 15
+    }
+  ]
+}

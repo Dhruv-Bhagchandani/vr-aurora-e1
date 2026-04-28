@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aurora E1 — A 360° VR Experience</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="bg-silhouette"></div>
+
+  <button class="mute-toggle" id="mute-btn" title="Toggle sound" aria-label="Toggle sound">🔊</button>
+
+  <div class="landing-container">
+    <div class="brand-badge">Aurora E1 &nbsp;·&nbsp; Electric Luxury</div>
+
+    <h1>The Future of<br><span>Luxury Driving</span></h1>
+    <p class="tagline">A 360° immersive experience — explore every surface,<br>discover every detail, from the inside out.</p>
+
+    <button class="enter-button" id="enter-btn">
+      <svg class="cardboard-icon" viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1" y="1" width="46" height="22" rx="4" stroke="#0a1628" stroke-width="2" fill="none"/>
+        <circle cx="14" cy="12" r="5" stroke="#0a1628" stroke-width="2" fill="none"/>
+        <circle cx="34" cy="12" r="5" stroke="#0a1628" stroke-width="2" fill="none"/>
+        <line x1="19" y1="12" x2="29" y2="12" stroke="#0a1628" stroke-width="2"/>
+        <polyline points="5,22 5,18 10,18" stroke="#0a1628" stroke-width="1.5" fill="none"/>
+        <polyline points="43,22 43,18 38,18" stroke="#0a1628" stroke-width="1.5" fill="none"/>
+      </svg>
+      Enter Experience
+    </button>
+
+    <p class="desktop-note" id="desktop-note">
+      💻 You can preview here, but Cardboard stereoscopic mode requires a smartphone.
+    </p>
+
+    <p class="instructions">
+      For best experience, use a smartphone with Google Cardboard
+      <span class="dot-divider">·</span>
+      Headphones recommended
+    </p>
+  </div>
+
+  <script>
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (!isMobile) {
+      document.getElementById('desktop-note').style.display = 'block';
+    }
+
+    let muted = false;
+    const muteBtn = document.getElementById('mute-btn');
+    muteBtn.addEventListener('click', () => {
+      muted = !muted;
+      muteBtn.textContent = muted ? '🔇' : '🔊';
+      sessionStorage.setItem('aurora_muted', muted ? '1' : '0');
+    });
+
+    const enterBtn = document.getElementById('enter-btn');
+    enterBtn.addEventListener('click', () => {
+      // iOS device-orientation permission must be requested on user gesture
+      if (typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission().catch(() => {});
+      }
+      window.location.href = 'vr.html';
+    });
+  </script>
+</body>
+</html>
