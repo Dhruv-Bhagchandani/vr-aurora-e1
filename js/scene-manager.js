@@ -33,9 +33,19 @@ const SceneManager = (() => {
   function _applyScene(scene) {
     _currentScene = scene.id;
 
-    // Swap sky
+    // Swap sky — map scene id to preloaded asset element
     const sky = document.getElementById('dynamic-sky');
-    if (sky) sky.setAttribute('src', scene.skyImage);
+    if (sky) {
+      const skyMap = {
+        'scene1-showroom': '#sky1',
+        'scene2-exterior':  '#sky2',
+        'scene3-interior':  '#sky3',
+        'scene4-road':      '#sky4',
+        'scene5-sunset':    '#sky5'
+      };
+      const skyRef = skyMap[scene.id] || scene.skyImage;
+      sky.setAttribute('src', skyRef);
+    }
 
     // Clear previous hotspots
     clearHotspots();
@@ -137,13 +147,25 @@ const SceneManager = (() => {
   return { loadScenes, loadScene, fadeOut, fadeIn, clearHotspots, getScene, getCurrentSceneId };
 })();
 
-// Boot sequence — runs after A-Frame scene is ready
-document.addEventListener('DOMContentLoaded', () => {
+// Boot sequence — robust to both early and late script execution
+function _boot() {
   const scene = document.querySelector('a-scene');
   if (!scene) return;
 
-  scene.addEventListener('loaded', async () => {
+  const start = async () => {
     await SceneManager.loadScenes();
     SceneManager.loadScene('scene1-showroom');
-  });
-});
+  };
+
+  if (scene.hasLoaded) {
+    start();
+  } else {
+    scene.addEventListener('loaded', start, { once: true });
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _boot);
+} else {
+  _boot();
+}

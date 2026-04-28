@@ -6,7 +6,8 @@
   <title>Aurora E1 — VR Experience</title>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <style>
-    body { margin: 0; background: #000; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+    .a-canvas { width: 100% !important; height: 100% !important; }
     #back-btn {
       position: fixed;
       top: 12px;
@@ -36,11 +37,10 @@
     background="color: #000"
     vr-mode-ui="enabled: true"
     loading-screen="dotsColor: white; backgroundColor: black"
-    renderer="antialias: true; colorManagement: true"
-    embedded>
+    renderer="antialias: true; colorManagement: true">
 
     <!-- ── Asset preloading ── -->
-    <a-assets timeout="30000">
+    <a-assets timeout="10000">
       <!-- 360° sky images -->
       <img id="sky1" src="assets/360/scene1-showroom.jpg" crossorigin="anonymous">
       <img id="sky2" src="assets/360/scene2-exterior.jpg" crossorigin="anonymous">

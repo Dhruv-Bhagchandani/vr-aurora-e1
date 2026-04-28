@@ -125,12 +125,18 @@ To change hotspot text, positions, or narration — **only edit `data/scenes.jso
 
 ## Asset Credits
 
-| Asset | Source | License |
-|---|---|---|
-| A-Frame 1.5.0 | https://aframe.io | MIT |
-| Placeholder 360° images | Generated (solid colour) — replace before submission | — |
-| Placeholder audio | Generated (silent) — replace before submission | — |
-| Cardboard icon | Custom SVG (this repo) | CC0 |
+| Asset | File | Source | License |
+|---|---|---|---|
+| A-Frame 1.5.0 | — | https://aframe.io | MIT |
+| Autoshop interior panorama | scene1-showroom.jpg | Poly Haven — `autoshop_01` | CC0 |
+| Parking lot panorama | scene2-exterior.jpg | Poly Haven — `future_parking` | CC0 |
+| Lounge interior panorama | scene3-interior.jpg | Poly Haven — `aft_lounge` | CC0 |
+| Road panorama | scene4-road.jpg | Poly Haven — `chapmans_drive` | CC0 |
+| Cape Hill sunset panorama | scene5-sunset.jpg | Poly Haven — `cape_hill` | CC0 |
+| Narration (all 5 tracks) | narration-1..5.mp3 | macOS `say` — Samantha voice | — |
+| Ambient audio | ambient-*.mp3 | Synthesised (ffmpeg) | CC0 |
+| SFX | click.mp3, transition-whoosh.mp3 | Synthesised (ffmpeg sine) | CC0 |
+| Cardboard icon | cardboard-icon.svg | Custom SVG (this repo) | CC0 |
 
 ---
 
